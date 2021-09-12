@@ -13,6 +13,6 @@ class XivError(Exception):
 
 
 class FailedRequest(XivError):
-    """Raised when a non 200 response is received from XIVAPI."""
+    """Raised when a non-ok response is received from XIVAPI."""
 
     ...

@@ -60,9 +60,8 @@ class Client:
         will not be scheduled to preserve the integrity of your
         existing Client Session.
         """
-        if isinstance(self._session, ClientSession):
-            if not self._session.closed:
-                self._loop.run_until_complete(self._session.close())
+        if not self._session.closed:
+            self._loop.run_until_complete(self._session.close())
 
     async def get_item_by_id(
         self,
@@ -95,14 +94,27 @@ class Client:
         async with self.session.get(self.url + uri, params=params) as resp:
             return await self._deserialize(resp)
 
-    @staticmethod
-    async def _deserialize(response: ClientResponse) -> t.Dict[t.Any, t.Any]:
-        """Internal method for decoding the response from XIVAPI."""
+    async def _deserialize(self, response: ClientResponse) -> t.Dict[t.Any, t.Any]:
+        """Internal method for deserializing the response from XIVAPI.
+
+        Args:
+            response: aiohttp.ClientResponse
+                The response received from XIVAPI.
+
+        Raises:
+            FailedRequest: Indicates a non-OK response from XIVAPI.
+
+        Returns:
+            t.Dict[t.Any, t.Any]: The deserialized data.
+        """
         data: t.Dict[t.Any, t.Any] = await response.json()
 
-        if 200 <= response.status <= 299:
-            return data
+        if not response.ok:
+            raise errors.FailedRequest(
+                f"Response status -> {data['ExCode']} | Info -> {data['Message']}"
+            )
 
-        raise errors.FailedRequest(
-            f"Response status -> {data['ExCode']} | Info -> {data['Message']}"
-        )
+        if "Icon" in data.keys():
+            data["Icon"] = self.url + data["Icon"]
+
+        return data

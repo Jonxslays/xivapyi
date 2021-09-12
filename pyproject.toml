@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "xivapyi"
-version = "0.1.0"
+version = "0.1.1"
 description = "An async python3 wrapper around the XIVAPI for Final Fantasy XIV."
 homepage = "https://github.com/Jonxslays/xivapyi"
 repository = "https://github.com/Jonxslays/xivapyi"
@@ -41,6 +41,8 @@ pytest = "^6.2.5"
 nox = "^2021.6.12"
 flake8 = "^3.9.2"
 len8 = {git = "https://github.com/parafoxia/len8.git", rev = "develop"}
+mock = "^4.0.3"
+types-mock = "^4.0.1"
 
 [tool.poetry.dev-dependencies.black]
 python = ">=3.6.2,<=3.10"
