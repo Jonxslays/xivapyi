@@ -1,10 +1,17 @@
 import typing
 
-from . import client
+from . import client, errors
 from .client import *
+from .errors import *
 
 __all__: typing.List[str] = [
     *client.__all__,
+    *errors.__all__,
+    "__version__",
+    "__author__",
+    "__maintainer__",
+    "__license__",
+    "__url__",
 ]
 
 __version__: str = "0.1.0"

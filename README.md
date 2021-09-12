@@ -22,4 +22,4 @@ This library uses Poetry for dependency management. You can read more about it [
 
 ## License
 
-xivapyi is licensed under the [BSD 3-Clause License](https://github.com/Jonxslays/sqlite2pg/blob/master/LICENSE).
+xivapyi is licensed under the [BSD 3-Clause License](https://github.com/Jonxslays/xivapyi/blob/master/LICENSE).
